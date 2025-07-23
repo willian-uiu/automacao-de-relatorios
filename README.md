@@ -13,7 +13,7 @@ Uma API para gerenciar uma fila de solicitações de relatórios, processada por
 
 O projeto é dividido em 3 componentes principais:
 1.  **API (Este Repositório):** O cérebro que gerencia a fila de tarefas.
-2.  **Robô/Worker:** Um fluxo em Power Automate que consome a API e executa a automação.
+2.  **Robô/Worker:** Um fluxo em Power Automate desktop que consome a API e executa a automação.
 3.  **Front-end:** Uma interface web simples para os vendedores fazerem as solicitações.
 
 ## Como Começar
