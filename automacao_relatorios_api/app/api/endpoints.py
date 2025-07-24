@@ -36,3 +36,31 @@ def create_solicitacao(
     
     solicitacao = crud.create_solicitacao(db=db, solicitacao_in=solicitacao_in)
     return solicitacao
+
+@router.get("/solicitacoes/proxima", response_model=schemas.Solicitacao)
+def read_proxima_solicitacao(db: Session = Depends(get_db)):
+    """
+    Obtém a próxima solicitação pendente da fila para ser processada.
+    """
+    proxima_solicitacao = crud.get_proxima_solicitacao_pendente(db=db)
+    if proxima_solicitacao is None:
+        raise HTTPException(status_code=404, detail="Nenhuma solicitação pendente encontrada.")
+
+    return proxima_solicitacao
+
+@router.put("/solicitacoes/{id_solicitacao}/status", response_model=schemas.Solicitacao)
+def update_solicitacao(
+    *,
+    db: Session = Depends(get_db),
+    id_solicitacao: int,
+    solicitacao_in: schemas.SolicitacaoUpdate
+):
+    """
+    Atualiza o status de uma solicitação existente.
+    """
+    solicitacao = crud.get_solicitacao(db=db, id=id_solicitacao)
+    if not solicitacao:
+        raise HTTPException(status_code=404, detail="Solicitação não encontrada.")
+
+    solicitacao_atualizada = crud.update_solicitacao_status(db=db, db_obj=solicitacao, obj_in=solicitacao_in)
+    return solicitacao_atualizada
