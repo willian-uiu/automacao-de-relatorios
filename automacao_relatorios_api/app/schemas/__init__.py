@@ -1,0 +1,1 @@
+from .solicitacao import Solicitacao, SolicitacaoCreate, SolicitacaoUpdate
